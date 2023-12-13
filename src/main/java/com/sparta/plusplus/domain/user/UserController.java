@@ -35,11 +35,10 @@ public class UserController {
             .body(new CommonResponseDto("일원이 된걸 축하하오!", HttpStatus.CREATED.value()));
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> checkNickname(@Valid @RequestBody UserSignupRequestDto requestDto) {
-        userService.checkNickname(requestDto);
-        return ResponseEntity.status(200)
-            .body(new CommonResponseDto("사용 할 수 있는 별명일세!", HttpStatus.OK.value()));
+    @PostMapping
+    public ResponseEntity<CheckNicknameResponseDto> checkNickname(
+        @Valid @RequestBody NicknameCheckRequestDto requestDto) {
+        return ResponseEntity.status(200).body(userService.checkExistNickname(requestDto));
     }
 
 }

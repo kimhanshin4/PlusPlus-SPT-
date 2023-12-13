@@ -30,6 +30,7 @@ public class UserService {
         if (checkUsername.isPresent()) {
             throw new IllegalArgumentException("이미 있는 사용자 잖아요!");
         }
+
         Optional<User> checkNickname = userRepository.findByNickname(nickname);
         if (checkNickname.isPresent()) {
             throw new IllegalArgumentException("저런~ 누가 이미 사용중 이에요!");

@@ -15,9 +15,8 @@ public class User {
     private Long id;
     @Column(nullable = false, unique = true)
     private String username;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String nickname;
-    private boolean checkedNickname;
     @Column(nullable = false)
     private String password;
     @Column(nullable = false, unique = true)
@@ -35,4 +34,5 @@ public class User {
         this.email = email;
         this.role = role;
     }
+
 }
