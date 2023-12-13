@@ -4,7 +4,7 @@ import lombok.*;
 
 @Getter
 @AllArgsConstructor
-public class CheckNicknameResponseDto {
+public class NicknameCheckResponseDto {
 
     private boolean existNickname;
 

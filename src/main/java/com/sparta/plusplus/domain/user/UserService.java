@@ -15,11 +15,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final String ADMIN_TOKEN = "I_AM_SPRTAN";
 
-    /**
-     * 회원가입
-     *
-     * @param requestDto
-     */
+    //회원가입
     public void signup(UserSignupRequestDto requestDto) {
         String username = requestDto.getUsername();
         String nickname = requestDto.getNickname();
@@ -53,12 +49,10 @@ public class UserService {
         userRepository.save(user);
     }
 
-    /**
-     * 닉네임 중복확인
-     *
-     * @param requestDto
-     */
-    public void checkNickname(UserSignupRequestDto requestDto) {
-
+    //닉네임 중복확인
+    @Transactional
+    public NicknameCheckResponseDto checkExistNickname(NicknameCheckRequestDto requestDto) {
+        return new NicknameCheckResponseDto(
+            userRepository.existsByNickname(requestDto.getNickname()));
     }
 }

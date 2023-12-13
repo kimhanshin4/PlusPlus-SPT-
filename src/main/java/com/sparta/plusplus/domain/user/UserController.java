@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<CheckNicknameResponseDto> checkNickname(
+    public ResponseEntity<NicknameCheckResponseDto> checkNickname(
         @Valid @RequestBody NicknameCheckRequestDto requestDto) {
         return ResponseEntity.status(200).body(userService.checkExistNickname(requestDto));
     }
