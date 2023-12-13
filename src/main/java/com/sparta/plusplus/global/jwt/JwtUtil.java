@@ -1,18 +1,18 @@
 package com.sparta.plusplus.global.jwt;
 
 import com.sparta.plusplus.domain.user.*;
-import com.sparta.plusplus.global.security.*;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.*;
-import jakarta.annotation.*;
-import jakarta.servlet.http.*;
-import java.lang.SecurityException;
-import java.security.*;
-import java.util.*;
-import lombok.extern.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.stereotype.*;
-import org.springframework.util.*;
+import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import java.security.Key;
+import java.util.Base64;
+import java.util.Date;
 
 @Slf4j(topic = "JwtUtil")
 @Component
@@ -25,12 +25,12 @@ public class JwtUtil {
     // Token 식별자
     public static final String BEARER_PREFIX = "Bearer ";
     // 토큰 만료시간
-    private static final long TOKEN_TIME = 60 * 60 * 1000L; // 60분
-    private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+    private final long TOKEN_TIME = 60 * 60 * 1000L; // 60분
 
     @Value("${jwt.secret.key}") // Base64 Encode 한 SecretKey
     private String secretKey;
     private Key key;
+    private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
     @PostConstruct
     public void init() {
@@ -62,11 +62,11 @@ public class JwtUtil {
     }
 
     // 토큰 검증
-    public boolean ValidatedToken(String token) {
+    public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
-        } catch (SecurityException | MalformedJwtException e) {
+        } catch (SecurityException | MalformedJwtException | SignatureException e) {
             log.error("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
         } catch (ExpiredJwtException e) {
             log.error("Expired JWT token, 만료된 JWT token 입니다.");
@@ -82,12 +82,4 @@ public class JwtUtil {
     public Claims getUserInfoFromToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
-
-    //accountId, role 확인 후 createToken 생성
-    public String generateToken(UserDetailsImpl userDetails) {
-        String username = userDetails.getUsername();
-        UserRoleEnum role = userDetails.getUser().getRole();
-        return createToken(username, role);
-    }
-
 }

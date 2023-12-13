@@ -15,7 +15,10 @@ public class User {
     private Long id;
     @Column(nullable = false, unique = true)
     private String username;
-    @Column
+    @Column(nullable = false)
+    private String nickname;
+    private boolean checkedNickname;
+    @Column(nullable = false)
     private String password;
     @Column(nullable = false, unique = true)
     private String email;
@@ -23,8 +26,11 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;
 
-    public User(String username, String password, String email, UserRoleEnum role) {
+    public User(String username, String nickname, String password,
+        String email,
+        UserRoleEnum role) {
         this.username = username;
+        this.nickname = nickname;
         this.password = password;
         this.email = email;
         this.role = role;
