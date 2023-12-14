@@ -1,6 +1,8 @@
 package com.sparta.plusplus.domain.user;
 
+import com.sparta.plusplus.domain.post.*;
 import jakarta.persistence.*;
+import java.util.*;
 import lombok.*;
 
 @Entity
@@ -21,9 +23,13 @@ public class User {
     private String password;
     @Column(nullable = false, unique = true)
     private String email;
+
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Post> postList;
 
     public User(String username, String nickname, String password,
         String email,
