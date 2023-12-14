@@ -1,6 +1,8 @@
 package com.sparta.plusplus.domain.user;
 
 import com.sparta.plusplus.domain.user.dto.*;
+import com.sparta.plusplus.global.security.*;
+import jakarta.servlet.http.*;
 import java.util.*;
 import lombok.*;
 import org.springframework.security.crypto.password.*;
@@ -54,5 +56,16 @@ public class UserService {
     public NicknameCheckResponseDto checkExistNickname(NicknameCheckRequestDto requestDto) {
         return new NicknameCheckResponseDto(
             userRepository.existsByNickname(requestDto.getNickname()));
+    }
+
+    public void login(LoginRequestDto requestDto) {
+        String username = requestDto.getUsername();
+        String password = requestDto.getPassword();
+
+        User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new IllegalArgumentException("등록되지 않은 녀석이로군!"));
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new IllegalArgumentException("!!! 비밀번호가 틀려! 누구인가 당신!");
+        }
     }
 }
