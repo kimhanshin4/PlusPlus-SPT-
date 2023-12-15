@@ -1,6 +1,8 @@
 package com.sparta.plusplus.domain.post;
 
+import com.sparta.plusplus.domain.post.dto.*;
 import com.sparta.plusplus.global.security.*;
+import java.util.*;
 import lombok.*;
 import org.springframework.http.*;
 import org.springframework.security.core.annotation.*;
@@ -18,6 +20,13 @@ public class PostController {
         @AuthenticationPrincipal
         UserDetailsImpl userDetails) {
         PostResponseDto responseDto = postService.createPost(requestDto, userDetails.getUser());
-        return ResponseEntity.ok().body(responseDto);
+        return ResponseEntity.status(201).body(responseDto);
     }
+
+    @GetMapping
+    public ResponseEntity<List<PostListResponseDto>> getPostList() {
+        List<PostListResponseDto> responseDtoList = postService.getPostList();
+        return ResponseEntity.ok().body(responseDtoList);
+    }
+
 }
