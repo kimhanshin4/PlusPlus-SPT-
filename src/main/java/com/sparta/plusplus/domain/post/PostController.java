@@ -24,8 +24,13 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PostListResponseDto>> getPostList() {
-        List<PostListResponseDto> responseDtoList = postService.getPostList();
+    public ResponseEntity<List<PostListResponseDto>> getPostList(
+        @RequestParam("page") int page,
+        @RequestParam("size") int size,
+        @RequestParam("sortBy") String sortBy,
+        @RequestParam("isAsc") boolean isAsc) {
+        List<PostListResponseDto> responseDtoList = postService.getPostList(page - 1, size, sortBy,
+            isAsc);
         return ResponseEntity.ok().body(responseDtoList);
     }
 
