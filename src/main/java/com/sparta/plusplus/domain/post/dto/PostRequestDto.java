@@ -1,4 +1,4 @@
-package com.sparta.plusplus.domain.post;
+package com.sparta.plusplus.domain.post.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.*;

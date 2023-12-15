@@ -1,5 +1,6 @@
-package com.sparta.plusplus.domain.post;
+package com.sparta.plusplus.domain.post.dto;
 
+import com.sparta.plusplus.domain.post.*;
 import jakarta.persistence.*;
 import java.time.*;
 import lombok.*;
