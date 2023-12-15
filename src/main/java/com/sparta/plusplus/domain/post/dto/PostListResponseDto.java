@@ -17,14 +17,16 @@ public class PostListResponseDto {
     private String username;
     private String content;
     private LocalDateTime createdAt;
+    private Integer page;
 
-    public static PostListResponseDto formingWith(Post newPost) {
+    public static PostListResponseDto formingWith(Post newPost, int page) {
         return PostListResponseDto.builder()
             .id(newPost.getId())
             .title(newPost.getTitle())
             .username(newPost.getUser().getUsername())
             .content(newPost.getContent())
             .createdAt(newPost.getCreatedAt())
+            .page(page + 1)
             .build();
     }
 }
