@@ -18,10 +18,6 @@ public class PostService {
 
     @Transactional
     public PostResponseDto createPost(PostRequestDto requestDto, User user) {
-
-//        if (!userRepository.existsByUser(user)) {
-//            throw new IllegalArgumentException("로그인을 하고 작성해야죠!");
-//        }
         Post newPost = Post.builder()
             .title(requestDto.getTitle())
             .user(user)
@@ -41,7 +37,5 @@ public class PostService {
 
         return postList.stream().map(post -> PostListResponseDto.formingWith(post, page))
             .collect(Collectors.toList());
-//        postList.stream().map(PostListResponseDto::formingWith)
-//            .collect(Collectors.toList());
     }
 }
