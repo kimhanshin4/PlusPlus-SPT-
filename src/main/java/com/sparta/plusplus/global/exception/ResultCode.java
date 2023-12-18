@@ -27,7 +27,7 @@ public enum ResultCode {
     INVALID_JWT_SIGNATURE(4001, "유효하지 않는 JWT 서명 입니다."),
     UNSUPPORTED_JWT_TOKEN(4002, "지원되지 않는 JWT 토큰 입니다."),
     JWT_CLAIMS_IS_EMPTY(4003, "잘못된 JWT 토큰 입니다."),
-    NO_MATCHES_PASSWORD(5000, "패스워드가 일치하지 않습니다."),
+    NO_MATCHES_PASSWORD(5000, "!!! 비밀번호가 틀려! 누구인가 당신!"),
     NOT_AUTHORIZATION(5000, "!!! 비밀번호가 틀려! 누구인가 당신!");
 
     private Integer code;

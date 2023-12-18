@@ -43,8 +43,26 @@ public class PostService {
     }
 
     public PostResponseDto getPost(Long postId) {
-        Post post = postRepository.findById(postId)
-            .orElseThrow(() -> new GlobalException(NOT_EXIST_POST));
+        Post post = findPost(postId);
         return PostResponseDto.formingWith(post);
+    }
+
+    @Transactional
+    public PostResponseDto modifyPost(Long postId, PostRequestDto requestDto, User user) {
+        Post post = findPost(postId);
+        checkIdentification(user, post);
+        post.modifyPost(requestDto);
+        return PostResponseDto.formingWith(post);
+    }
+
+    private static void checkIdentification(User user, Post post) {
+        if (!post.getUser().getUsername().equals(user.getUsername())) {
+            throw new GlobalException(NOT_EXIST_POST);
+        }
+    }
+
+    private Post findPost(Long postId) {
+        return postRepository.findById(postId)
+            .orElseThrow(() -> new GlobalException(NOT_EXIST_POST));
     }
 }
