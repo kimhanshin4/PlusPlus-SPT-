@@ -34,4 +34,7 @@ public class PostController {
         return ResponseEntity.ok().body(responseDtoList);
     }
 
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostResponseDto> getPost()
+
 }
