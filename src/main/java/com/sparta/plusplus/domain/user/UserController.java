@@ -35,22 +35,12 @@ public class UserController {
         @Valid @RequestBody NicknameCheckRequestDto requestDto) {
         return RestResponse.success(userService.checkExistNickname(requestDto));
     }
-//    public ResponseEntity<NicknameCheckResponseDto> checkNickname(
-//        @Valid @RequestBody NicknameCheckRequestDto requestDto) {
-//        return ResponseEntity.status(200).body(userService.checkExistNickname(requestDto));
-//    }
 
     @PostMapping("/login")
     public RestResponse<LoginResponseDto> login(@RequestBody LoginRequestDto requestDto) {
-//        try {
         userService.login(requestDto);
         return RestResponse.success(
             LoginResponseDto.builder().name("log-in").text("좋아, 통과일세!").build());
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.badRequest()
-//                .body(new CommonResponseDto("음? 무언가 틀렸구먼. 다시 확인 해보게!",
-//                    HttpStatus.BAD_REQUEST.value()));
-//        }
     }
 
 }
