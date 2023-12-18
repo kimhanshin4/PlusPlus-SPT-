@@ -1,7 +1,10 @@
 package com.sparta.plusplus.domain.post;
 
+import static com.sparta.plusplus.global.exception.ResultCode.NOT_EXIST_POST;
+
 import com.sparta.plusplus.domain.post.dto.*;
 import com.sparta.plusplus.domain.user.*;
+import com.sparta.plusplus.global.exception.*;
 import java.util.*;
 import java.util.stream.*;
 import lombok.*;
@@ -37,5 +40,11 @@ public class PostService {
 
         return postList.stream().map(post -> PostListResponseDto.formingWith(post, page))
             .collect(Collectors.toList());
+    }
+
+    public PostResponseDto getPost(Long postId) {
+        Post post = postRepository.findById(postId)
+            .orElseThrow(() -> new GlobalException(NOT_EXIST_POST));
+        return PostResponseDto.formingWith(post);
     }
 }

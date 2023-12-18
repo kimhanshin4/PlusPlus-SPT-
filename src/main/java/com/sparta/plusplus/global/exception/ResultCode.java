@@ -12,7 +12,7 @@ public enum ResultCode {
     EXIST_USER(2001, "이미 있는 사용자 잖아요!"),
     EXIST_NICKNAME(2002, "오잉? 닉네임 중복검사 다시하고 오세요!"),
     EXIST_EMAIL(2003, "이미 사용 중인 이메일 이에요!"),
-    NOT_EXIST_BOARD(2010, "게시글이 존재하지 않거나 작성자가 아닙니다."),
+    NOT_EXIST_POST(2010, "게시글이 없거나 작성자가 아니군요!"),
     NOT_EXIST_COMMENT(2012, "댓글이 존재하지 않거나 작성자가 아닙니다."),
     ALREADY_FOLLOWED(3000, "이미 팔로우된 유저입니다."),
     NOT_YET_FOLLOWED(3001, "아직 팔로우되지 않은 유저입니다."),
