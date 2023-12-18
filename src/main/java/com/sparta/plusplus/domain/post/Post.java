@@ -1,5 +1,6 @@
 package com.sparta.plusplus.domain.post;
 
+import com.sparta.plusplus.domain.post.dto.*;
 import com.sparta.plusplus.domain.user.*;
 import com.sparta.plusplus.global.util.*;
 import jakarta.persistence.*;
@@ -32,5 +33,10 @@ public class Post extends BaseTime {
     //TODO 좋아요
     public void postLike() {
         this.isLiked = !isLiked;
+    }
+
+    public void modifyPost(PostRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
     }
 }

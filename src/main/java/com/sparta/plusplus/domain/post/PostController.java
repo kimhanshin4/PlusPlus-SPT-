@@ -2,6 +2,7 @@ package com.sparta.plusplus.domain.post;
 
 import com.sparta.plusplus.domain.post.dto.*;
 import com.sparta.plusplus.global.security.*;
+import jakarta.validation.*;
 import java.util.*;
 import lombok.*;
 import org.springframework.http.*;
@@ -16,7 +17,7 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public ResponseEntity<PostResponseDto> createPost(@RequestBody PostRequestDto requestDto,
+    public ResponseEntity<PostResponseDto> createPost(@Valid @RequestBody PostRequestDto requestDto,
         @AuthenticationPrincipal
         UserDetailsImpl userDetails) {
         PostResponseDto responseDto = postService.createPost(requestDto, userDetails.getUser());
@@ -37,6 +38,15 @@ public class PostController {
     @GetMapping("/{postId}")
     public ResponseEntity<PostResponseDto> getPost(@PathVariable Long postId) {
         PostResponseDto responseDto = postService.getPost(postId);
+        return ResponseEntity.status(200).body(responseDto);
+    }
+
+    @PatchMapping("/{postId}")
+    public ResponseEntity<PostResponseDto> modifyPost(@PathVariable Long postId, @Valid
+    @RequestBody PostRequestDto requestDto,
+        @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        PostResponseDto responseDto = postService.modifyPost(postId, requestDto,
+            userDetails.getUser());
         return ResponseEntity.status(200).body(responseDto);
     }
 
