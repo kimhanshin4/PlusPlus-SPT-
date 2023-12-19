@@ -2,6 +2,7 @@ package com.sparta.plusplus.domain.post;
 
 import static com.sparta.plusplus.global.exception.ResultCode.NOT_EXIST_POST;
 
+import com.sparta.plusplus.domain.dto.*;
 import com.sparta.plusplus.domain.post.dto.*;
 import com.sparta.plusplus.domain.user.*;
 import com.sparta.plusplus.global.exception.*;
@@ -53,6 +54,12 @@ public class PostService {
         checkIdentification(user, post);
         post.modifyPost(requestDto);
         return PostResponseDto.formingWith(post);
+    }
+
+    public void deletePost(Long postId, User user) {
+        Post post = findPost(postId);
+        checkIdentification(user, post);
+        postRepository.delete(post);
     }
 
     private static void checkIdentification(User user, Post post) {

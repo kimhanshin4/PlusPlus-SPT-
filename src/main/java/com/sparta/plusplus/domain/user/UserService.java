@@ -16,7 +16,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final String ADMIN_TOKEN = "I_AM_SPRTAN";
+    private final String ADMIN_TOKEN = "I_AM_SPARTAN";
 
     //회원가입
     @Transactional

@@ -1,6 +1,8 @@
 package com.sparta.plusplus.domain.post;
 
+import com.sparta.plusplus.domain.dto.*;
 import com.sparta.plusplus.domain.post.dto.*;
+import com.sparta.plusplus.global.response.*;
 import com.sparta.plusplus.global.security.*;
 import jakarta.validation.*;
 import java.util.*;
@@ -41,7 +43,7 @@ public class PostController {
         return ResponseEntity.status(200).body(responseDto);
     }
 
-    @PatchMapping("/{postId}")
+    @PatchMapping("/{postId}/modify")
     public ResponseEntity<PostResponseDto> modifyPost(@PathVariable Long postId, @Valid
     @RequestBody PostRequestDto requestDto,
         @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -50,4 +52,9 @@ public class PostController {
         return ResponseEntity.status(200).body(responseDto);
     }
 
+    @DeleteMapping("/{postId}/delete")
+    public void deletePost(@PathVariable Long postId,
+        @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        postService.deletePost(postId, userDetails.getUser());
+    }
 }
