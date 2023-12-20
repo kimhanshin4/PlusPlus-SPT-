@@ -1,17 +1,15 @@
 package com.sparta.plusplus.domain.post.dto;
 
 import com.sparta.plusplus.domain.post.*;
-import jakarta.persistence.*;
 import java.time.*;
 import lombok.*;
 
 @Getter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostResponseDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String username;

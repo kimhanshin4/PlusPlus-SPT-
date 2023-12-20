@@ -1,12 +1,11 @@
 package com.sparta.plusplus.domain.post;
 
+import com.sparta.plusplus.domain.comment.*;
 import com.sparta.plusplus.domain.post.dto.*;
 import com.sparta.plusplus.domain.user.*;
 import com.sparta.plusplus.global.util.*;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import java.time.*;
-import jdk.jshell.execution.*;
+import java.util.*;
 import lombok.*;
 
 @Entity
@@ -24,16 +23,17 @@ public class Post extends BaseTime {
     private String title;
     @Column(nullable = false)
     private String content;
-    private boolean isLiked;
+//    private boolean isLiked;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
+    private User user; //User와 양방향
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> commentList;
     //TODO 좋아요
-    public void postLike() {
-        this.isLiked = !isLiked;
-    }
+//    public void postLike() {
+//        this.isLiked = !isLiked;
+//    }
 
     public void modifyPost(PostRequestDto requestDto) {
         this.title = requestDto.getTitle();

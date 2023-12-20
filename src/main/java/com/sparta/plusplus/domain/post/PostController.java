@@ -1,8 +1,6 @@
 package com.sparta.plusplus.domain.post;
 
-import com.sparta.plusplus.domain.dto.*;
 import com.sparta.plusplus.domain.post.dto.*;
-import com.sparta.plusplus.global.response.*;
 import com.sparta.plusplus.global.security.*;
 import jakarta.validation.*;
 import java.util.*;
