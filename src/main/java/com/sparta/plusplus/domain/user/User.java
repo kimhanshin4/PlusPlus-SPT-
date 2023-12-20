@@ -29,7 +29,7 @@ public class User {
     private UserRoleEnum role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Post> postList;
+    private List<Post> postList; //Post와 양방향
 
     public User(String username, String nickname, String password,
         String email,

@@ -4,8 +4,8 @@ import lombok.*;
 
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class LoginResponseDto {
 
     private String name;

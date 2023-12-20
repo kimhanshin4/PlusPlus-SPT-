@@ -1,8 +1,7 @@
 package com.sparta.plusplus.domain.post;
 
-import static com.sparta.plusplus.global.exception.ResultCode.NOT_EXIST_POST;
+import static com.sparta.plusplus.global.exception.ResultCode.*;
 
-import com.sparta.plusplus.domain.dto.*;
 import com.sparta.plusplus.domain.post.dto.*;
 import com.sparta.plusplus.domain.user.*;
 import com.sparta.plusplus.global.exception.*;
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.*;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
 
     @Transactional
     public PostResponseDto createPost(PostRequestDto requestDto, User user) {
@@ -39,7 +37,7 @@ public class PostService {
 
         Page<Post> postList = postRepository.findAll(pageable);
 
-        return postList.stream().map(post -> PostListResponseDto.formingWith(post, page))
+        return postList.stream().map(post -> PostListResponseDto.formWith(post, page))
             .collect(Collectors.toList());
     }
 
@@ -68,7 +66,7 @@ public class PostService {
         }
     }
 
-    private Post findPost(Long postId) {
+    public Post findPost(Long postId) {
         return postRepository.findById(postId)
             .orElseThrow(() -> new GlobalException(NOT_EXIST_POST));
     }
