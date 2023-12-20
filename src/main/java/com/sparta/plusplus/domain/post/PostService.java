@@ -60,14 +60,14 @@ public class PostService {
         postRepository.delete(post);
     }
 
+    public Post findPost(Long postId) {
+        return postRepository.findById(postId)
+            .orElseThrow(() -> new GlobalException(NOT_EXIST_POST));
+    }
+
     private static void checkIdentification(User user, Post post) {
         if (!post.getUser().getUsername().equals(user.getUsername())) {
             throw new GlobalException(NOT_EXIST_POST);
         }
-    }
-
-    public Post findPost(Long postId) {
-        return postRepository.findById(postId)
-            .orElseThrow(() -> new GlobalException(NOT_EXIST_POST));
     }
 }

@@ -24,4 +24,15 @@ public class CommentController {
         return ResponseEntity.status(201).body(responseDto);
     }
 
+    @PutMapping("/{commentId}")
+    public ResponseEntity<CommentResponseDto> modifyComment(@PathVariable Long postId,
+        @PathVariable Long commentId,
+        @Valid @RequestBody CommentRequestDto requestDto,
+        @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        CommentResponseDto responseDto = commentService.modifyComment(postId, commentId,
+            requestDto,
+            userDetails.getUser());
+        return ResponseEntity.ok().body(responseDto);
+    }
+
 }

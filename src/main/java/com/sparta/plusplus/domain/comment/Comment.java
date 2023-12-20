@@ -1,5 +1,6 @@
 package com.sparta.plusplus.domain.comment;
 
+import com.sparta.plusplus.domain.comment.dto.*;
 import com.sparta.plusplus.domain.post.*;
 import com.sparta.plusplus.domain.user.*;
 import com.sparta.plusplus.global.util.*;
@@ -27,5 +28,9 @@ public class Comment extends BaseTime {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id") //User로 단방향
     private User user;
+
+    public void updateComment(CommentRequestDto requestDto) {
+        this.content = requestDto.getContent();
+    }
 
 }
