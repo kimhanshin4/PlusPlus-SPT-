@@ -65,6 +65,8 @@ public class WebSecurityConfig {
                 .requestMatchers("/").permitAll() // 메인 페이지 요청 허가
                 .requestMatchers("/api/posts").permitAll() // '/api/post' 까지 접근 허가
                 .requestMatchers("/api/posts/{postId}").permitAll() // '/api/post/{postId}' 까지 접근 허가
+                .requestMatchers("/api/posts/{postId}/comments")
+                .permitAll() // '/api/post/{postId}' 까지 접근 허가
                 .requestMatchers("/api/users/signup").permitAll() // '/api/users/nicknames'까지 접근 허가
                 .requestMatchers("/api/users/login").permitAll() // '/api/users/'로 시작하는 요청 모두 접근 허가
                 .requestMatchers("/api/users/signup/nicknames")
