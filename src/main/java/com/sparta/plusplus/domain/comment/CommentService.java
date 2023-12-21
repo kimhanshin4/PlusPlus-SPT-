@@ -56,6 +56,14 @@ public class CommentService {
             .content(requestDto.getContent()).modifiedAt(comment.getModifiedAt()).build();
     }
 
+    @Transactional
+    public void deleteComment(Long postId, Long commentId, User user) {
+        postService.findPost(postId);
+        Comment comment = findComment(commentId);
+        checkIdentification(user, comment);
+        commentRepository.delete(comment);
+    }
+
     private Comment findComment(Long commentId) {
         return commentRepository.findById(commentId)
             .orElseThrow(() -> new GlobalException(NOT_EXIST_COMMENT));
