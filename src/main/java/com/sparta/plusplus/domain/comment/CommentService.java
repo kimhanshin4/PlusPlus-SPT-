@@ -6,7 +6,10 @@ import com.sparta.plusplus.domain.comment.dto.*;
 import com.sparta.plusplus.domain.post.*;
 import com.sparta.plusplus.domain.user.*;
 import com.sparta.plusplus.global.exception.*;
+import java.util.*;
+import java.util.stream.*;
 import lombok.*;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 
@@ -16,6 +19,19 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final PostService postService;
+
+    public List<CommentListResponseDto> getCommentList(Long postId, int page, int size,
+        String sortBy, boolean isAsc) {
+        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<Comment> commentList = commentRepository.findByPostId(postId, pageable);
+        return commentList.stream().map(comment -> CommentListResponseDto.formWith(comment, page))
+//        return commentList.stream().map(CommentListResponseDto::formWith)
+            .collect(
+                Collectors.toList());
+    }
 
     @Transactional
     public CommentResponseDto createComment(Long postId, CommentRequestDto requestDto, User user) {
