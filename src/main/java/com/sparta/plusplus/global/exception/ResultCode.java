@@ -37,16 +37,5 @@ public enum ResultCode {
         this.code = code;
         this.message = errorMessage;
     }
-    //User
-//    REJECTED_USER_EXECUTION(HttpStatus.FORBIDDEN, "수정 권한이 없어요!"),
-//    NON_USER_EXIST(HttpStatus.NOT_FOUND, "해당 사용자가 존재하지 않아요!"),
-//    ALREADY_EXIST_USER(HttpStatus.FORBIDDEN, "이미 있는 사용자 잖아요!"),
-//    ALREADY_EXIST_EMAIL(HttpStatus.FORBIDDEN, "이미 사용 중인 이메일 이에요!"),
-//    ALREADY_EXIST_NICKNAME(HttpStatus.FORBIDDEN, "오잉? 닉네임 중복검사 다시하고 오세요!"),
-//    PASSWORD_IS_NOT_MATCH(HttpStatus.FORBIDDEN, "비밀번호가 일치하지 않아요!"),
-//    //NotAvailableAuthorizationException
-//    NOT_AVAILABLE_AUTHORIZATION(HttpStatus.FORBIDDEN, "장난하나;");
 
-//    private final HttpStatus httpStatus;
-//    private final String message;
 }
