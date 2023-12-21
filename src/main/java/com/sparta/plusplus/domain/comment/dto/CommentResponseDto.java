@@ -15,12 +15,12 @@ public class CommentResponseDto {
     private String content;
     private LocalDateTime modifiedAt;
 
-    public static CommentResponseDto formWith(Comment newComment) {
+    public static CommentResponseDto formWith(Comment comment) {
         return CommentResponseDto.builder()
-            .id(newComment.getId())
-            .username(newComment.getUser().getUsername())
-            .content(newComment.getContent())
-            .modifiedAt(newComment.getModifiedAt())
+            .id(comment.getId())
+            .username(comment.getUser().getUsername())
+            .content(comment.getContent())
+            .modifiedAt(comment.getModifiedAt())
             .build();
     }
 

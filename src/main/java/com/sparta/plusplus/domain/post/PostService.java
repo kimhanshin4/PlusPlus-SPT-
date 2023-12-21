@@ -2,6 +2,8 @@ package com.sparta.plusplus.domain.post;
 
 import static com.sparta.plusplus.global.exception.ResultCode.*;
 
+import com.sparta.plusplus.domain.comment.*;
+import com.sparta.plusplus.domain.comment.dto.*;
 import com.sparta.plusplus.domain.post.dto.*;
 import com.sparta.plusplus.domain.user.*;
 import com.sparta.plusplus.global.exception.*;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.*;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
 
     @Transactional
     public PostResponseDto createPost(PostRequestDto requestDto, User user) {
@@ -43,7 +46,9 @@ public class PostService {
 
     public PostResponseDto getPost(Long postId) {
         Post post = findPost(postId);
-        return PostResponseDto.formingWith(post);
+        List<CommentResponseDto> responseDtoList = getCommentList(post);
+
+        return PostResponseDto.formingWith(post, responseDtoList);
     }
 
     @Transactional
@@ -58,6 +63,17 @@ public class PostService {
         Post post = findPost(postId);
         checkIdentification(user, post);
         postRepository.delete(post);
+    }
+
+    private static List<CommentResponseDto> getCommentList(Post post) {
+        List<CommentResponseDto> responseDtoList = new ArrayList<>();
+        List<Comment> commentList = post.getCommentList();
+        //최신 댓글 순으로 정렬
+        commentList.sort((o1, o2) -> o2.getModifiedAt().compareTo(o1.getModifiedAt()));
+        for (Comment comment : commentList) {
+            responseDtoList.add(CommentResponseDto.formWith(comment));
+        }
+        return responseDtoList;
     }
 
     public Post findPost(Long postId) {
