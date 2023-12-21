@@ -6,9 +6,6 @@ import lombok.*;
 public class GlobalException extends RuntimeException {
 
     private ResultCode resultCode;
-//    private ErrorCode errorCode;
-//    private String errorMessage;
-//    private int statusCode;
 
     public GlobalException(ResultCode resultCode) {
         super(resultCode.getMessage());
