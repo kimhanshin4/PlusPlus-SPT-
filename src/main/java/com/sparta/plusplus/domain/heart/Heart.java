@@ -27,6 +27,6 @@ public class Heart {
 
     public Boolean updateHeart() {
         this.isHearted = !isHearted;
-        return isHearted;
+        return this.isHearted;
     }
 }

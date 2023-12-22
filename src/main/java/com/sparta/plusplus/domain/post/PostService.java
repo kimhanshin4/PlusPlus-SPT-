@@ -27,6 +27,7 @@ public class PostService {
             .title(requestDto.getTitle())
             .user(user)
             .content(requestDto.getContent())
+            .heartCnt(0L)
             .build();
         postRepository.save(newPost);
         return PostResponseDto.formingWith(newPost);
