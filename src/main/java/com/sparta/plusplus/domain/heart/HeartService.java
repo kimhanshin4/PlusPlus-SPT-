@@ -17,7 +17,7 @@ public class HeartService {
     private final PostService postService;
 
     @Transactional
-    public HeartResponseDto giveHeart(User user, Long postId) {
+    public HeartResponseDto giveHeart(Long postId, User user) {
         Post post = postService.findPost(postId);
         Heart heart = heartRepository.findByUserAndPost(user, post).orElseGet(
             () -> firstHeart(user, post));
@@ -28,7 +28,8 @@ public class HeartService {
         return HeartResponseDto.formWith(heart.getIsHearted());
     }
 
-    private Heart firstHeart(User user, Post post) {
+    @Transactional
+    public Heart firstHeart(User user, Post post) {
         Heart heart = Heart.builder()
             .isHearted(DEFAULT_HEART)
             .user(user)

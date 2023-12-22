@@ -33,7 +33,7 @@ public class Post extends BaseTime {
     private List<Comment> commentList;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Heart> heartList;
+    private List<Heart> heartList = new ArrayList<>();
 
     public void modifyPost(PostRequestDto requestDto) {
         this.title = requestDto.getTitle();

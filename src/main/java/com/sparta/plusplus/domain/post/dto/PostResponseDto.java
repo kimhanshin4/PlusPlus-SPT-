@@ -16,16 +16,18 @@ public class PostResponseDto {
     private String title;
     private String username;
     private String content;
+    private Long heartCnt;
     private LocalDateTime createdAt;
     private List<CommentResponseDto> commentList;
 
-    public static PostResponseDto formingWith(Post newPost) {
+    public static PostResponseDto formingWith(Post post) {
         return PostResponseDto.builder()
-            .id(newPost.getId())
-            .title(newPost.getTitle())
-            .username(newPost.getUser().getUsername())
-            .content(newPost.getContent())
-            .createdAt(newPost.getCreatedAt())
+            .id(post.getId())
+            .title(post.getTitle())
+            .username(post.getUser().getUsername())
+            .content(post.getContent())
+            .heartCnt(post.getHeartCnt())
+            .createdAt(post.getCreatedAt())
             .build();
     }
 
@@ -36,6 +38,7 @@ public class PostResponseDto {
             .title(post.getTitle())
             .username(post.getUser().getUsername())
             .content(post.getContent())
+            .heartCnt(post.getHeartCnt())
             .createdAt(post.getCreatedAt())
             .commentList(responseDtoList)
             .build();
