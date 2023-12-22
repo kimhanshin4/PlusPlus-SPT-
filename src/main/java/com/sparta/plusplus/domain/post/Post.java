@@ -1,6 +1,7 @@
 package com.sparta.plusplus.domain.post;
 
 import com.sparta.plusplus.domain.comment.*;
+import com.sparta.plusplus.domain.heart.*;
 import com.sparta.plusplus.domain.post.dto.*;
 import com.sparta.plusplus.domain.user.*;
 import com.sparta.plusplus.global.util.*;
@@ -23,20 +24,27 @@ public class Post extends BaseTime {
     private String title;
     @Column(nullable = false)
     private String content;
-//    private boolean isLiked;
+    private Long heartCnt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user; //User와 양방향
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> commentList;
-    //TODO 좋아요
-//    public void postLike() {
-//        this.isLiked = !isLiked;
-//    }
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Heart> heartList;
 
     public void modifyPost(PostRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
+    }
+
+    public void stackHeart(boolean heartStatus) {
+        if (heartStatus) {
+            this.heartCnt++;
+            return;
+        }
+        this.heartCnt--;
     }
 }
